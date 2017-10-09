@@ -1,5 +1,5 @@
 # BMC Remedy 8 - ITSM - Incident - Work Log Update
-A common Major Incident Management (MIM) approach is to leverage xMatter to send MIM communications and initiate conference bridges to manage a MIM.  A common request is to update the matching Remedy Incident Ticket work logs with information from this work flow in xMatters.  
+A common Major Incident Management (MIM) approach is to leverage xMatters to send MIM communications and initiate conference bridges to manage a MIM.  A common request is to update the matching Remedy Incident Ticket work logs with information from this work flow in xMatters.  
 This xM Labs Integration allows you to connect an xMatters Communication Plan Form with a Remedy Incident Management instance to update the Remedy work log associated with the ticket.
 
 NOTE: This does not require an existing Remedy Incident Management integration to be in place.
@@ -18,7 +18,7 @@ NOTE: This does not require an existing Remedy Incident Management integration t
 * [xM_xMatters_to_Remedy_Worklog.zip](xM_xMatters_to_Remedy_Worklog.zip) - Zip file containing all necessary Integration Agent files
 
 # How it works
-Once the Integration Service is installed, any Communication Plan Form can be configured to send information to the Remedy Work Log of the associated Incident Ticket when the form is used to send a communication using an xMatters Outbound Integration.  This integration depends on two key (configurable) field being present in the layout of the form to represent the Incident ID of the ticket and the Message to be included in the worklog.
+Once the Integration Service is installed, any Communication Plan Form can be configured to send information to the Remedy Work Log of the associated Incident Ticket when the form is used to send a communication using an xMatters Outbound Integration.  This integration depends on two key (configurable) fields being present in the layout of the form to represent the Incident ID of the ticket and the Message to be included in the worklog.
 
 # Installation
 ## 1. Installation and Configuration
@@ -40,9 +40,10 @@ _**Note:** If you have more than one integration agent providing the this servic
 
 **To install the integration service:**
 
-1. Copy all of the contents of the /components/integration-agent/ folder from the extracted integration archive to the <IAHOME> folder.
+1. Copy all of the contents of the `/components/integration-agent/` folder from the extracted integration archive to the `<IAHOME>` folder.
 
-2. Open the IAConfig.xml file found in <IAHOME>/conf and add the following line to the “service-configs” section: <path>remedy81/remedyincident-worklog.xml</path>
+2. Open the IAConfig.xml file found in `<IAHOME>/conf` and add the following line to the “service-configs” section: 
+```<path>remedy81/remedyincident-worklog.xml</path>```
 
 3. Open the configuration.js file (now located in <IAHOME>/integrationservices/remedy81/remedyincident-worklog/ folder, and set the values for the following variables:
    * **REMEDY_WS_USERNAME:** The user name to be used for the BMC Remedy API Server; default value is "xmatters".
@@ -64,7 +65,7 @@ On Windows, the integration agent runs as a Windows Service; on Unix, it runs as
 
 ## 2. Updating the user password
 
-The password for the BMC Remedy user is stored in an encrypted password file, stored in the <IAHOME>/conf subfolder. For the integration to connect to the API, you will have to replace the default value ("password") with the password of the database user specified in the configuration.js file (as described in the table above.)
+The password for the BMC Remedy user is stored in an encrypted password file, stored in the `<IAHOME>/conf` subfolder. For the integration to connect to the API, you will have to replace the default value ("password") with the password of the database user specified in the `configuration.js` file (as described in the table above.)
 
 _**Note:** For more information about the integration agent's IAPassword feature used to encrypt the password, see the xMatters integration agent guide._
 
@@ -72,7 +73,7 @@ To change the encrypted password:
 
 1. Navigate to the <IAHOME>/bin subfolder, and then run the following command, replacing <newPassword> with the password of the BMC Remedy user:
 
-`./iapassword.sh --new "<newPassword>" --old password --file conf/bmccontrolm.pwd`
+`./iapassword.sh --new "<newPassword>" --old password --file conf/xm_hpd_ws.pwd`
 
 _**Note:** that if you want to change this password again, you will have to replace "password" in the above command with the existing password._
 
@@ -116,10 +117,10 @@ Test the integration by sending a communication using the configured form and en
 # Troubleshooting
 On the xMatters side, logging can be found in the Activity Stream of the Outbound Integration created above; this logging will relate to the call from xMatters onDemand to the Integration Agent for processing on the BMC Remedy server.
 
-On the Remedy side, logging can be found in the <IAHOME>/log/AlarmPoint.txt file; this logging will relate to the call from the Integration Agent to BMC Remedy to update the worklogs 
+On the Remedy side, logging can be found in the `<IAHOME>/log/AlarmPoint.txt` file; this logging will relate to the call from the Integration Agent to BMC Remedy to update the worklogs 
 
 # Extending this Integration
 A few things to note:
-1. The Incident ID field does some simple formatting.  This formatting (and the rules of the formatting) can be found in the **formatIncidentID** function of the remedyincident-worklog-callbacks.js file in the <IAHOME>/integrationservices/remedy81/ directory.
+1. The Incident ID field does some simple formatting.  This formatting (and the rules of the formatting) can be found in the **formatIncidentID** function of the `remedyincident-worklog-callbacks.js` file in the `<IAHOME>/integrationservices/remedy81/` directory.
 2. The integration is designed to be easily extendable for more than just the xMatters event being created by submitting the xMatters form.
 	* You can add additional Outbound Integrations in the Integration Builder associated with the Communication Plan in xMatters.  There is code is in place on the Integration Agent side to handle the currently supported Delivery Status and Response Outbound Integration and can easily be extended for any new Outbound Integrations as they are added to the onDemand product.  The functional entry point of apia_callback can be found in the remedyincident-worklog-callbacks.js file in the <IAHOME>/integrationservices/remedy81/ directory

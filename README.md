@@ -15,7 +15,7 @@ NOTE: This does not require an existing Remedy Incident Management integration t
 * xMatters Integration Agent 5.x (5.0 patch 007 or later) and corresponding Integration Agent Utilities - Downloads and install docs are [here](https://support.xmatters.com/hc/en-us/articles/201463419-Integration-Agent-for-xMatters-5-x-xMatters-On-Demand)
 
 # Files
-* *  [xM_xMatters_to_Remedy_Worklog.zip](xM_xMatters_to_Remedy_Worklog.zip) - Zip file containing all necessary Integration Agent files
+* [xM_xMatters_to_Remedy_Worklog.zip](xM_xMatters_to_Remedy_Worklog.zip) - Zip file containing all necessary Integration Agent files
 
 # How it works
 Once the Integration Service is installed, any Communication Plan Form can be configured to send information to the Remedy Work Log of the associated Incident Ticket when the form is used to send a communication using an xMatters Outbound Integration.  This integration depends on two key (configurable) field being present in the layout of the form to represent the Incident ID of the ticket and the Message to be included in the worklog.
@@ -103,7 +103,7 @@ Create an ITSM user with the Incident Master role in BMC Remedy; the user does n
 	* Click on **Outbound Integrations**
 	* Click on the **Add** button
 	* Set the Trigger: Event Status Updates
-	* Select the Form: <Select your Form from the dropdown>
+	* Select the Form: **Select your Form from the dropdown**
 	* Choose an Action: Send to Integration Agent
 	* Select an Integration Service: remedyincident-worklog
 	* NOTE: Do not configure a specific Integration Agent 
